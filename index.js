@@ -10,3 +10,7 @@ var settings = {
 var bot = new NickrBot(settings);
 bot.on('start', function () {});
 bot.run();
+
+require('http').createServer(function (req, res) {
+  res.end('nickr-bot');
+}).listen(process.env.PORT || 5000);
