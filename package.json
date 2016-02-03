@@ -1,0 +1,22 @@
+{
+  "name": "nickr-bot",
+  "version": "1.0.0",
+  "description": "A Slack Bot for the NickrAPI",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julien/nickr-bot.git"
+  },
+  "author": "jcastelain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/julien/nickr-bot/issues"
+  },
+  "dependencies": {
+    "request": "^2.69.0",
+    "slackbots": "^0.5.1"
+  }
+}
