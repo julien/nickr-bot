@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var NickrBot = require('./bot');
 
 var settings = {

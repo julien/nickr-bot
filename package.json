@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "A Slack Bot for the NickrAPI",
   "main": "index.js",
+  "bin": {
+    "nickrbot": "index.js"
+  },
   "scripts": {
     "start": "node index.js"
   },

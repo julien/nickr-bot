@@ -1,1 +1,1 @@
-web: node index.js
+workers: node index.js
