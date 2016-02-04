@@ -66,8 +66,8 @@ NickrBot.prototype._isMention = function (message) {
 
 NickrBot.prototype._search = function (name, user) {
   var self = this;
-  var msg = 'Ok, give me a moment ' + user.name + ' ,I\'ll ask my API for: ' + name;
-  this.postMessageToUser(user.name, msg, {icon_emoji: ':smile:'});
+  var msg = 'Ok, give me a moment, I\'ll ask my API for ' + name;
+  this.postMessageToUser(user.name, msg, {icon_emoji: ':beers:'});
 
   return request.get('https://nickr.herokuapp.com/users/' + name)
     .on('response', function (res) {
@@ -86,9 +86,9 @@ NickrBot.prototype._showRandomName = function (user, data, name) {
   if (util.isObject(data) && util.isArray(data.nicknames)) {
     var l = data.nicknames.length;
     var n = data.nicknames[(Math.random() * l)|0];
-    this.postMessageToUser(user.name, n.value);
+    this.postMessageToUser(user.name, n);
   } else {
-    this.postMessageToUser(user.name, 'Sorry ' + user.name + ' ,I couldn\'t find: ' + name, {icon_emoji: ':cry:'});
+    this.postMessageToUser(user.name, 'Sorry, I couldn\'t find ' + name, {icon_emoji: ':cry:'});
   }
 };
 
