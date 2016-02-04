@@ -19,6 +19,7 @@
     "url": "https://github.com/julien/nickr-bot/issues"
   },
   "dependencies": {
+    "googleapis": "^2.1.7",
     "request": "^2.69.0",
     "slackbots": "^0.5.1"
   }
