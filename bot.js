@@ -27,8 +27,7 @@ NickrBot.prototype._onStart = function () {
 };
 
 NickrBot.prototype._onMessage = function (message) {
-  console.log(message);
-
+  // console.log(message);
   if (this._isChatMessage(message) && !this._isFromNickrBot(message)) {
     var user = this._getUserByID(message.user);
     if (user) this._search(message.text, user);
@@ -75,7 +74,7 @@ NickrBot.prototype._search = function (name, user) {
   var msg = 'Ok, give me a moment, I\'ll ask my API for ' + name;
   this.postMessageToUser(user.name, msg, {icon_emoji: ':beers:'});
 
-  return request.get('https://nickr.herokuapp.com/users/' + name)
+  return request.get(process.env.NICKR_SEARCH_URL + name)
     .on('response', function (res) {
       var buf = new Buffer('');
       res.on('data', function (chunk) {
