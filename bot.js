@@ -27,7 +27,8 @@ NickrBot.prototype._onStart = function () {
 };
 
 NickrBot.prototype._onMessage = function (message) {
-  // console.log(message);
+  console.log(message);
+
   if (this._isChatMessage(message) && !this._isFromNickrBot(message)) {
     var user = this._getUserByID(message.user);
     if (user) this._search(message.text, user);
@@ -96,7 +97,7 @@ NickrBot.prototype._showRandomName = function (user, data, name) {
 
     customsearch.cse.list({cx: cseId, q: randname, auth: cseApiKey, searchType: 'image'}, function (err, resp) {
       if (err) {
-        console.error('error', error);
+        console.error('error', err);
         self.postMessageToUser(user.name, randname);
       } else if (util.isArray(resp.items)) {
         var l = resp.items.length-1;
