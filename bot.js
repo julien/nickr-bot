@@ -1,8 +1,13 @@
 'use strict';
 
 var Bot = require('slackbots');
+var google = require('googleapis');
+var customsearch = google.customsearch('v1');
 var request = require('request');
 var util = require('util');
+
+var cseId = process.env.GOOGLE_CUSTOM_SEARCH_ID;
+var cseApiKey = process.env.GOOGLE_CUSTOM_SEARCH_API_KEY;
 
 function NickrBot(settings) {
   Bot.call(this, settings);
@@ -83,10 +88,29 @@ NickrBot.prototype._search = function (name, user) {
 };
 
 NickrBot.prototype._showRandomName = function (user, data, name) {
+  var self = this;
+
   if (util.isObject(data) && util.isArray(data.nicknames)) {
     var l = data.nicknames.length;
-    var n = data.nicknames[(Math.random() * l)|0];
-    this.postMessageToUser(user.name, n);
+    var randname = data.nicknames[(Math.random() * l)|0];
+
+    customsearch.cse.list({cx: cseId, q: randname, auth: cseApiKey, searchType: 'image'}, function (err, resp) {
+      if (err) {
+        console.error('error', error);
+        self.postMessageToUser(user.name, randname);
+      } else if (util.isArray(resp.items)) {
+        var l = resp.items.length-1;
+        var img = resp.items[(Math.random()*l|0)].link;
+        self.postMessageToUser(user.name, randname, {
+          attachments:[{
+            fallback: randname,
+            image_url: img
+          }],
+          as_user: true
+        });
+      }
+    });
+
   } else {
     this.postMessageToUser(user.name, 'Sorry, I couldn\'t find ' + name, {icon_emoji: ':cry:'});
   }
